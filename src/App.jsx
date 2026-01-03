@@ -14,8 +14,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 function App() {
   return (
     <AuthProvider>
-      <CartProvider>
-        <Router>
+      <Router>
+        <CartProvider>
           <Navbar />
           <Routes>
             <Route path='/' element={<Home />} />
@@ -47,8 +47,8 @@ function App() {
               }
             />
           </Routes>
-        </Router>
-      </CartProvider>
+        </CartProvider>
+      </Router>
     </AuthProvider>
   );
 }
