@@ -2,6 +2,7 @@ import { createContext, useState, useEffect } from 'react';
 import { useContext } from 'react';
 import { supabase } from '../lib/supabase';
 import { useAuth } from './AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const CartContext = createContext();
 
@@ -9,6 +10,7 @@ export default function CartProvider({ children }) {
   const [cartItems, setCartItems] = useState([]);
   const [discount, setDiscount] = useState(0);
   const { user } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (user) {
@@ -58,6 +60,11 @@ export default function CartProvider({ children }) {
 
   async function addToCart(item, quantity = 1) {
     try {
+      if (!user) {
+        navigate('/login');
+        return;
+      }
+
       let firstItemRestaurant = null;
 
       if (cartItems.length > 0) {
